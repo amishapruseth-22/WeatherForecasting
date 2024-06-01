@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Weather Forecast App</title>
+    <style>
+      body {
+        font-family: sans-serif;
+        text-align: center;
+      }
+      h1 {
+        margin-top: 30px;
+      }
+      input[type="text"] {
+        padding: 10px;
+        border-radius: 5px;
+        border: none;
+        box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
+        margin-top: 20px;
+        font-size: 18px;
+        width: 250px;
+      }
+      button {
+        padding: 10px 20px;
+        border-radius: 5px;
+        border: none;
+        background-color: #4caf50;
+        color: #fff;
+        font-size: 18px;
+        margin-top: 10px;
+        cursor: pointer;
+      }
+      button:hover {
+        background-color: #3e8e41;
+      }
+      .weather-container {
+        margin-top: 30px;
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        flex-wrap: wrap;
+      }
+      .weather-card {
+        width: 200px;
+        padding: 20px;
+        border-radius: 5px;
+        box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
+        margin-bottom: 20px;
+      }
+      .weather-card h2 {
+        margin-top: 0;
+        font-size: 24px;
+      }
+      .weather-card img {
+        width: 100px;
+        height: 100px;
+        margin-bottom: 10px;
+      }
+      .weather-card p {
+        margin: 5px 0;
+        font-size: 18px;
+      }
+      canvas {
+        margin-top: 30px;
+        margin-bottom: 50px;
+        display: block;
+        width: 80%;
+        max-width: 800px;
+        height: auto;
+        box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
+        border-radius: 5px;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Weather Forecast App</h1>
+    <input type="text" id="city-input" placeholder="Enter city name" />
+    <button id="get-weather-button">Get Weather</button>
+
+    <div id="weather-container" class="weather-container"></div>
+    <canvas id="chart"></canvas>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+      const apiKey = 'YOUR_API_KEY_HERE';
+
+      const cityInput = document.getElementById('city-input');
+      const getWeatherButton = document.getElementById('get-weather-button');
+      const weatherContainer = document.getElementById('weather-container');
+      const chart = document.getElementById('chart').getContext('2d');
+
+      getWeatherButton.addEventListener('click', () => {
+        const city = cityInput.value || 'Delhi';
+        fetchWeatherData(city);
+      });
+
+      function fetchWeatherData(city) {
+        fetch(
+          `https://api.openweathermap.org/data/2.5/forecast?q=${city}&appid=${apiKey}&units=metric`
+        )
+          .then((response) => response.json())
+          .then((data) => {
+            displayCurrentWeather(city);
+          });
+        };
+        </script>
+        </body>
+        </html>
